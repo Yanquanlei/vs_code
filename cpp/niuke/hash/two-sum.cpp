@@ -20,5 +20,6 @@ int main()
     int target=26;
     Solution s;
     cout<<s.twoSum(input,target)[0]<<" "<<s.twoSum(input,target)[1]<<endl;
-
+    getchar();
+    return 0; 
 }
