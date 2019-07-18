@@ -1,25 +1,32 @@
 #include"iostream"
 #include"vector"
+#include"map"
 using namespace std;
-class Solution {
-public:
+ class Solution {
+ public:
+
     vector<int> twoSum(vector<int> &numbers, int target) {
-        for( int  i=0;i<numbers.size();i++)
-           for( int  j=i+1;j<numbers.size();j++)
-                {
-                if(numbers[i]+numbers[j]==target)
-                    return {++i,++j};
-                }
-      return {0,1}; 
+        map<int,int> datamap;
+        for (int i = 0; i < numbers.size(); ++i) {
+            datamap[numbers[i]] = i;
+        }
+        for (int i = 0; i < numbers.size();i++)
+        {   
+            map<int,int>::iterator iter = datamap.find(target - numbers[i]);
+            if(iter!=datamap.end()&&datamap[target-numbers[i]]>i)
+                return {++i, ++iter->second};
+        }
+        return {0, 0};
     }
 };
 
 int main()
 {
-    vector<int> input={2,7,11,15};
-    int target=26;
+    vector<int> input={0,4,3,0};
+    int target=0;
     Solution s;
     cout<<s.twoSum(input,target)[0]<<" "<<s.twoSum(input,target)[1]<<endl;
+    getchar();
     getchar();
     return 0; 
 }
