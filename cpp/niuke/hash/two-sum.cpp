@@ -10,7 +10,7 @@ using namespace std;
 
         for (int i = 0; i < numbers.size(); ++i) { 
             map<int,int>::iterator iter = datamap.find(target - numbers[i]);
-            if(iter!=datamap.end()&&datamap[target-numbers[i]]!=i)
+            if(iter!=datamap.end())
                 return {++iter->second,++i};
             else {
                 datamap[numbers[i]] = i;
