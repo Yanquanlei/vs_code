@@ -7,17 +7,18 @@ using namespace std;
 
     vector<int> twoSum(vector<int> &numbers, int target) {
         map<int,int> datamap;
-        for (int i = 0; i < numbers.size(); ++i) {
-            datamap[numbers[i]] = i;
-        }
-        for (int i = 0; i < numbers.size();i++)
-        {   
+
+        for (int i = 0; i < numbers.size(); ++i) { 
             map<int,int>::iterator iter = datamap.find(target - numbers[i]);
-            if(iter!=datamap.end()&&datamap[target-numbers[i]]>i)
-                return {++i, ++iter->second};
+            if(iter!=datamap.end()&&datamap[target-numbers[i]]!=i)
+                return {++iter->second,++i};
+            else {
+                datamap[numbers[i]] = i;
+            }
         }
         return {0, 0};
     }
+
 };
 
 int main()
