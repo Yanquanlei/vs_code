@@ -31,5 +31,14 @@
         "-std=c++17",
         "-Wall"
     ],
-    "clang.completion.enable":true // 效果比cpptools要好
+    "clang.completion.enable": true,
+    "files.associations": {
+        "array": "cpp",
+        "hash_map": "cpp",
+        "deque": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "initializer_list": "cpp",
+        "string_view": "cpp"
+    } // 效果比cpptools要好
 }
