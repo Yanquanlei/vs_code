@@ -14,6 +14,7 @@ using namespace std;
                 return {++iter->second,++i};
             else {
                 datamap[numbers[i]] = i;
+                
             }
         }
         return {0, 0};
