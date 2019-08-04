@@ -7,93 +7,52 @@ using namespace std;
 class Solution {
 public:
 	vector<int> findDiagonalOrder(vector<vector<int>>& matrix) {
-		vector<int> output;
-        bool direction=false;   //false means count from down to up       
-		int M = matrix.size(),N;
-        if(M>0)
-            N = matrix[0].size();
-
-        if(M==1)
-            {               
-                for(int i=0;i<2&&i<N;i++)
-                    output.push_back((matrix[0][i]));
-        } else if (N==1) {
-                for(int i=0;i<2&&i<M;i++)
-                    output.push_back((matrix[i][0]));
-        }
-                else if (M > 1)
-		{   
-            int r,c;
-            int size=(M<N)?M:N;
-            for(int i=0;i<size;i++)
-            {
-                int r0,c0;
-              if (direction) {
-                    r0=0;
-                    c0=i;
-              }
-              else{
-                  r0=i;
-                  c0=0;
-              }
-              r=r0;c=c0;    //initialize the position for every round;
-
-              if (r0==c0) {
-                  output.push_back((matrix[r0][c0])); 
-              } else {
-                while (max(r,c)<=max(r0,c0)) {
-                    output.push_back((matrix[r][c]));                   
-                    nextmove(r, c, direction);                  
-                }
-              }
-
-              direction=!direction;
-            }
-
-
-            for(int i=1;i<size;i++)
-            {
-                int r0,c0;
-              if (direction) {
-                    r0=i;
-                    c0=size-1;
-              }
-              else{
-                  r0=size-1;
-                  c0=i;
-              }
-              r=r0;c=c0;    //initialize the position for every round;
-
-              if (r0==c0) {
-                  output.push_back((matrix[r0][c0])); 
-              } else {
-                while (max(r,c)<=max(r0,c0)) {
-                    output.push_back((matrix[r][c]));                   
-                    nextmove(r, c, direction);                  
-                }
-              }
-
-              direction=!direction;
-            }
-            
-                                                                 
-					
+		vector<int> output;     
+		int M = matrix.size(), N;
+		if (M > 0)
+		{
+			N = matrix[0].size();
+			int r = 0, c = 0;	
+			do
+			{
+				output.push_back((matrix[r][c]));
+			}while (nextmove(r, c, M, N));
 		}
-
 		return output;
 	}
 
-    private:
-      void nextmove(int &r, int &c, bool direction) {
-        if (direction) {
-          r++;
-          c--;
-        }
-         else {
-            r--;
-            c++;
-        }
-      }
+   private:
+	bool nextmove(int& r, int& c, int M, int N) {
+	    if (r == M - 1 && c == N - 1)
+				return false;
+		else if ((r + c) % 2 == 0)   //横纵坐标为偶数时向上
+		{
+			if (r == 0 || c==N-1 )                  //往上时，到达上右条边说明到达顶点了
+			{
+				if (c == N - 1)					//不能往右，只能往下
+					r++;
+				else
+					c++;                         //否则往右
+			}
+			else {
+				r--; c++;
+				}
+		}
+		else if ((r + c) % 2 != 0)
+		{
+			if (r == M-1 ||c==0)                  //往下时，到达左下条边说明到达底部点了
+			{
+				if (r==M-1)					//不能往下，只能往右
+					c++;
+				else
+					r++;                         //否则往下
+			}
+			else {
+				r++; c--;
+			}
+		}
+		return true;
+	}
 };
 
 int main() {
